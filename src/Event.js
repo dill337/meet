@@ -24,7 +24,7 @@ class Event extends Component {
         <p className="event_Overview--description">{this.props.event.description}</p>
         <p className="event_Overview--location">{this.props.event.location}</p>
         <p className="event_Overview--link">{this.props.event.htmlLink}</p>
-        <button className="event_Overview button" onClick={() => this.handleShowDetails()}>show details</button>
+        <button className="event_Overview details-btn" onClick={() => this.handleShowDetails()}>show details</button>
 
       </div>
       {this.state.showDetails && (

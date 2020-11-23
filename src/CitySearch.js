@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 
-
 class CitySearch extends Component {
   state = {
     query: '',
@@ -51,4 +50,4 @@ class CitySearch extends Component {
   }
 }
 
-export default CitySearch
+export default CitySearch 
