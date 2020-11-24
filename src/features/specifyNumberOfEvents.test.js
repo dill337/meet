@@ -26,19 +26,19 @@ defineFeature(feature, test => {
 
   test('When the user changes the number of events there will be that many displayed', ({ given, when, then }) => {
     let AppWrapper;
+    const eventNumber = { target: { value: 12 } };
     given('there are thirty two events displayed', () => {
       AppWrapper = mount(<App />)
     });
 
     when('the user changes the number', () => {
-      const eventNumber = { target: { value: 12 } };
-      AppWrapper.find('.numberOfEvents').simulate('change', eventNumber);
+      AppWrapper.find('.eventsNumber').simulate('change', eventNumber);
     });
 
     then('there will be the new number of events displayed', () => {
-      let eventNumber;
+      let newNumber = eventNumber.target.value
       const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
-      expect(NumberOfEventsWrapper.state('number')).toEqual(eventNumber);
+      expect(NumberOfEventsWrapper.state('numberOfEvents')).toEqual(newNumber);
     });
   });
 });
