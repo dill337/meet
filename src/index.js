@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import * as serviceWorker from './serviceWorker';
+import * as atatus from 'atatus-spa';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
@@ -10,6 +12,9 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+
+serviceWorker.register();
+atatus.config('4361834c43fd4b968472f535ab39d0a7').install();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
