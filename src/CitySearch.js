@@ -17,7 +17,7 @@ class CitySearch extends Component {
     if (suggestions.length === 0) {
       this.setState({
         query: value,
-        //  suggestions,
+        suggestions,
         infoText: 'We cannot find the city you are looking for.  Please try another.'
       });
     } else {
