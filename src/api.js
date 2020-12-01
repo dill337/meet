@@ -13,14 +13,14 @@ export const extractLocations = (events) => {
   return locations;
 };
 
-const checkToken = async (accessToken) => {
+export const checkToken = async (accessToken) => {
   const result = await fetch(
     `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`
   )
     .then((res) => res.json())
     .catch((error) => error.json());
 
-  return result;
+  return result.error ? false : true;
 };
 
 export const getEvents = async () => {
@@ -48,7 +48,7 @@ export const getEvents = async () => {
 }
 
 export const getAccessToken = async () => {
-  const accessToken = localStorage.getItem('access_token');
+  const accessToken = await localStorage.getItem('access_token');
   const tokenCheck = accessToken && (await checkToken(accessToken));
 
   if (!accessToken || tokenCheck.error) {
@@ -60,12 +60,14 @@ export const getAccessToken = async () => {
         "https://g6sym0e9h1.execute-api.eu-central-1.amazonaws.com/dev/api/get-auth-url"
       );
       const { authUrl } = results.data;
+      localStorage.setItem("authUrl", authUrl);
       return (window.location.href = authUrl);
     }
     return code && getToken(code);
   }
   return accessToken;
 }
+
 
 const removeQuery = () => {
   if (window.history.pushState && window.location.pathname) {
@@ -82,6 +84,7 @@ const removeQuery = () => {
 };
 
 const getToken = async (code) => {
+  removeQuery();
   const encodeCode = encodeURIComponent(code);
   const { access_token } = await fetch(
     `https://g6sym0e9h1.execute-api.eu-central-1.amazonaws.com/dev/api/token/${encodeCode}`
