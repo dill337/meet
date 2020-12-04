@@ -4,25 +4,26 @@ import { InfoAlert } from './Alert';
 
 class CitySearch extends Component {
   state = {
-    query: '',
+    // query: '',
     suggestions: [],
     showSuggestions: false
   }
   handleInputChanged = (event) => {
     const value = event.target.value;
+    this.props.updateLocation(value);
     this.setState({ showSuggestions: true });
     const suggestions = this.props.locations.filter((location) => {
       return location.toUpperCase().indexOf(value.toUpperCase()) > -1;
     });
     if (suggestions.length === 0) {
       this.setState({
-        query: value,
+        // query: value,
         suggestions,
         infoText: 'We cannot find the city you are looking for.  Please try another.'
       });
     } else {
       return this.setState({
-        query: value,
+        // query: value,
         suggestions,
         infoText: ''
       });
@@ -30,10 +31,10 @@ class CitySearch extends Component {
   };
   handleItemClicked = (suggestion) => {
     this.setState({
-      query: suggestion,
+      // query: suggestion,
       showSuggestions: false
     });
-    this.props.updateEvents(suggestion);
+    this.props.updateLocation(suggestion);
   }
   render() {
     return (
@@ -42,7 +43,7 @@ class CitySearch extends Component {
         <input
           type="text"
           className="city"
-          value={this.state.query}
+          value={this.props.selectedLocation}
           onChange={this.handleInputChanged}
           onFocus={() => { this.setState({ showSuggestions: true }) }}
         />

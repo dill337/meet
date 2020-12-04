@@ -5,14 +5,14 @@ import { ErrorAlert } from './Alert';
 
 class NumberOfEvents extends Component {
   state = {
-    numberOfEvents: 32,
     infoText: ''
   }
 
   handleOnChange = (event) => {
     const value = event.target.value;
-    this.props.updateEvents('all', value);
-    this.setState({ numberOfEvents: value });
+    this.props.updateEventCount(value)
+    // this.props.updateEvents(null, value);
+    // this.setState({ numberOfEvents: value });
 
     if (value < 0) {
       this.setState({
@@ -22,7 +22,6 @@ class NumberOfEvents extends Component {
       this.setState({
         infoText: ''
       })
-      this.props.updateEvents(null, value);
     }
   };
 
@@ -36,7 +35,7 @@ class NumberOfEvents extends Component {
           type="text"
           id="numbeOfEvents__input"
           className="eventsNumber"
-          value={this.state.numberOfEvents}
+          value={this.props.numberOfEvents}
           onChange={this.handleOnChange}
         >
 
