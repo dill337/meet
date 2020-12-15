@@ -44,10 +44,9 @@ class App extends Component {
     this.mounted = true;
 
     getEvents().then((events) => {
-      if (code && this.mounted === true && validToken === false) {
-        console.log(events);
+      if (code && this.mounted === true) {/*&& validToken === false) {
+        console.log(events);*/
         this.setState({ tokenCheck: true, events, locations: extractLocations(events) });
-        this.updateEvents('all', 32)
       }
     });
   }
@@ -56,14 +55,18 @@ class App extends Component {
     this.mounted = false;
   }
 
-  updateLocation = (location) => {
-    console.log(location);
-    this.setState({ selectedLocation: location }, this.updateEvents())
+  updateLocation = async (location) => {
+    await this.setState({ selectedLocation: location })
+    await this.updateEvents()
+    // console.log(location);
+    // this.setState({ selectedLocation: location }, this.updateEvents())
   }
 
-  updateEventCount = (numberOfEvents) => {
-    console.log(numberOfEvents)
-    this.setState({ numberOfEvents }, this.updateEvents())
+  updateEventCount = async (numberOfEvents) => {
+    await this.setState({ numberOfEvents })
+    await this.updateEvents()
+    // console.log(numberOfEvents)
+    // this.setState({ numberOfEvents }, this.updateEvents())
   }
 
   updateEvents = () => {
