@@ -14,11 +14,19 @@ export const extractLocations = (events) => {
 };
 
 export const checkToken = async (accessToken) => {
+
+  if (!navigator.online && accessToken === true) {
+    return true
+  }
+
   const result = await fetch(
     `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`
   )
+
+
     .then((res) => res.json())
     .catch((error) => error.json());
+
 
   return result.error ? false : true;
 };
@@ -31,14 +39,14 @@ export const getEvents = async () => {
     return mockData;
   }
 
-  // if (!navigator.onLine) {
-  //   const events = localStorage.getItem('lastEvents');
-  //   NProgress.done();
-  //   return {
-  //     events: JSON.parse(events).events,
-  //     locations: extractLocations(JSON.parse(events).events),
-  //   };
-  // }
+  if (!navigator.onLine) {
+    const events = localStorage.getItem('lastEvents');
+    NProgress.done();
+    return {
+      events: JSON.parse(events).events,
+      locations: extractLocations(JSON.parse(events).events),
+    };
+  }
 
   const token = await getAccessToken();
 
